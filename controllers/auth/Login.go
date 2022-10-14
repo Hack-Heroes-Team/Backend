@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +11,7 @@ import (
 
 func Login(c *gin.Context) {
 	var formFromInput models.User
-	var Users []models.User
+	var Users models.User
 
 	// Here i'am binding data from JSON request with models.User
 	if err := c.ShouldBindJSON(&formFromInput); err != nil {
@@ -29,22 +28,18 @@ func Login(c *gin.Context) {
 	User.Mail = formFromInput.Mail
 	User.Password = formFromInput.Password
 
-	// TODO: Change the way how i find user
+	// Authorization part
 
 	DB := db.Init()
-	DB.Table("users").Find(&Users)
 
-	fmt.Println(Users)
+	err := DB.Table("users").Where("mail = ?", User.Mail).First(&Users).Error
 
-	// Authorization part
-	for _, x := range Users {
-		if x.Mail == User.Mail {
-			checkPassword(c, x.Password, User.Password)
-			return
-		}
+	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"authorized": false, "error": "User Didn't find"})
 		return
 	}
+
+	checkPassword(c, Users.Password, User.Password)
 }
 
 // Deserialize Hashed Password and Password from JSON request
