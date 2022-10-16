@@ -15,6 +15,8 @@ func main() {
 
 	// Receipt part:
 	router.POST("/receiptsForUser", receipts.FindAllReceiptsForUser)
+	router.POST("/addReceipt", receipts.AddReceipts)
+	router.POST("/addItem", receipts.AddItems)
 
 	// Run Server
 	err := router.Run(":" + "8080")
