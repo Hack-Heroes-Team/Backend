@@ -1,4 +1,4 @@
-package receipts
+package items
 
 import (
 	"github.com/gin-gonic/gin"
@@ -9,15 +9,15 @@ import (
 
 // NOTE: items column struct in db are not changed
 
-func DeleteItem(c *gin.Context) {
+func UpdateItem(c *gin.Context) {
 	DB := db.Init()
-	var deletingItem models.Item
+	var updatingItem models.Item
 
-	err := c.ShouldBindJSON(deletingItem)
+	err := c.ShouldBindJSON(updatingItem)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
-	DB.Table("items").Where("id = ?", deletingItem.Id).Delete(&deletingItem)
+	DB.Table("items").Where("id = ?", updatingItem.Id).Updates(&updatingItem)
 }

@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func FindLastParagonsFromShop(c *gin.Context) {
+func FindLastReceiptsFromShop(c *gin.Context) {
 	DB := db.Init()
 
 	var shopAndOwnerNames models.InputForm
