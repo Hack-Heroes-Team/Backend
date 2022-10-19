@@ -10,6 +10,8 @@ import (
 	"github.com/mic3b/hack-backend/controllers/receipts"
 )
 
+//NOTE: Database is not updated IMPORTANT!!!!!
+
 func main() {
 	port := os.Getenv("PORT")
 	router := gin.Default()
