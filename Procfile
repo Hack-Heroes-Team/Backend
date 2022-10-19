@@ -1,1 +1,1 @@
-web: bin/hack-heroes-back
+web: bin/hack-back
