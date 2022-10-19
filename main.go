@@ -13,7 +13,7 @@ func main() {
 	//Test Part:
 	router.GET("/", receipts.HelloWorld)
 
-
+	
 	// Auth part:
 	router.POST("/login", auth.Login)
 	router.POST("/register", auth.Register)
