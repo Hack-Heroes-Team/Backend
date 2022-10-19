@@ -1,4 +1,4 @@
-package receipts
+package dashboard
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 	"github.com/mic3b/hack-backend/models"
 )
 
-func FindAllReceiptsForUser(c *gin.Context) {
+func LastReceipt(c *gin.Context) {
 	DB := db.Init()
 
 	var userMail models.InputForm
@@ -27,8 +27,15 @@ func FindAllReceiptsForUser(c *gin.Context) {
 		receipts[i].Items = items
 	}
 
-	c.JSON(http.StatusOK, gin.H{"receipts": receipts})
+	max := receipts[0]
 
+	for _, v := range receipts {
+		if v.Id > max.Id {
+			max = v
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{"receipt": max})
 }
 
 //How Json Should look like:

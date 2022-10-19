@@ -1,11 +1,12 @@
 package receipts
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/mic3b/hack-backend/db"
 	"github.com/mic3b/hack-backend/models"
 	"gorm.io/gorm/clause"
-	"net/http"
 )
 
 func FindLastReceiptsFromShop(c *gin.Context) {
@@ -33,3 +34,11 @@ func FindLastReceiptsFromShop(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"receipts": receipts})
 }
+
+//How Json Should look like:
+/*
+{
+"shop": string,
+"owner": string,
+}
+*/

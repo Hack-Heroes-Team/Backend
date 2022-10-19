@@ -1,4 +1,4 @@
-package receipts
+package dashboard
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 	"github.com/mic3b/hack-backend/models"
 )
 
-func FindAllReceiptsForUser(c *gin.Context) {
+func AvgReceiptsPrice(c *gin.Context) {
 	DB := db.Init()
 
 	var userMail models.InputForm
@@ -27,7 +27,22 @@ func FindAllReceiptsForUser(c *gin.Context) {
 		receipts[i].Items = items
 	}
 
-	c.JSON(http.StatusOK, gin.H{"receipts": receipts})
+	var items []models.Item
+
+	DB.Table("items").Where("owner = ?", userMail.Owner).Find(&items)
+
+	c.JSON(http.StatusOK, gin.H{"Avg": addAllItems(items)})
+}
+
+func addAllItems(items []models.Item) float64 {
+	var SumCost float64
+	for _, v := range items {
+		SumCost = SumCost + v.Price
+	}
+
+	AvgPrice := SumCost / float64(len(items))
+
+	return AvgPrice
 
 }
 

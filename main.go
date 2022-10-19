@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/mic3b/hack-backend/controllers/auth"
+	"github.com/mic3b/hack-backend/controllers/dashboard"
 	"github.com/mic3b/hack-backend/controllers/items"
 	"github.com/mic3b/hack-backend/controllers/receipts"
 )
@@ -16,6 +17,10 @@ func main() {
 	//Test Part:
 	router.GET("/", receipts.HelloWorld)
 
+	// Dashboard part:
+	router.POST("/lastReceipt", dashboard.LastReceipt)
+	router.POST("/avgReceiptPrice", dashboard.AvgReceiptsPrice)
+	router.POST("/avgReceiptPriceNearbt", dashboard.AvgReceiptsPriceNearby)
 
 	// Auth part:
 	router.POST("/login", auth.Login)

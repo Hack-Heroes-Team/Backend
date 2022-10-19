@@ -1,11 +1,12 @@
 package receipts
 
 import (
+	"net/http"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/mic3b/hack-backend/db"
 	"github.com/mic3b/hack-backend/models"
-	"net/http"
-	"time"
 )
 
 func AddReceipts(c *gin.Context) {
@@ -22,3 +23,15 @@ func AddReceipts(c *gin.Context) {
 
 	DB.Table("receipts").Create(&newReceipt)
 }
+
+//How Json Should look like:
+/*
+
+{
+"id": int,
+"name": string,
+"shop": string,
+"owner": string,
+"date": timestamp
+}
+*/
