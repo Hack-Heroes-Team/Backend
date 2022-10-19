@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"github.com/mic3b/hack-backend/controllers/auth"
 	"github.com/mic3b/hack-backend/controllers/items"
@@ -8,12 +10,13 @@ import (
 )
 
 func main() {
+	port := os.Getenv("PORT")
 	router := gin.Default()
 
 	//Test Part:
 	router.GET("/", receipts.HelloWorld)
 
-	
+
 	// Auth part:
 	router.POST("/login", auth.Login)
 	router.POST("/register", auth.Register)
@@ -31,7 +34,7 @@ func main() {
 	router.POST("/deleteItem", items.DeleteItem)
 
 	// Run Server
-	err := router.Run(":" + "8080")
+	err := router.Run(":" + port)
 
 	if err != nil {
 		return
