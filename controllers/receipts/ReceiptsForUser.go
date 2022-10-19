@@ -1,16 +1,17 @@
 package receipts
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/mic3b/hack-backend/db"
 	"github.com/mic3b/hack-backend/models"
-	"net/http"
 )
 
 func FindAllReceiptsForUser(c *gin.Context) {
 	DB := db.Init()
 
-	var userMail models.UserMail
+	var userMail models.InputForm
 	var receipts []models.Receipt
 
 	if err := c.ShouldBindJSON(&userMail); err != nil {
@@ -18,7 +19,7 @@ func FindAllReceiptsForUser(c *gin.Context) {
 		return
 	}
 
-	DB.Table("receipts").Where("owner = ?", userMail.UserMail).Find(&receipts)
+	DB.Table("receipts").Where("owner = ?", userMail.Owner).Find(&receipts)
 
 	for i, v := range receipts {
 		var items []models.Item
