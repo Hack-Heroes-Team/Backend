@@ -1,1 +1,1 @@
-web: bin/tlc_translator
+web: bin/hach-heroes-backend
