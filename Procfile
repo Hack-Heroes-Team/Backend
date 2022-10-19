@@ -1,1 +1,1 @@
-web: bin/hach-heroes-backend
+web: bin/hack-heroes-back
