@@ -1,6 +1,7 @@
 package receipts
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -21,7 +22,22 @@ func AddReceipts(c *gin.Context) {
 
 	newReceipt.Date = time.Now()
 
+	var shops []models.Shop
+	var shop models.Shop
+	DB.Table("shops").Find(&shops)
+
+	for _, v := range shops {
+		if v.Name == newReceipt.Shop {
+			fmt.Println("Matching")
+		} else {
+			shop = models.Shop{Name: newReceipt.Shop}
+			DB.Table("shops").Create(&shop)
+		}
+	}
+
 	DB.Table("receipts").Create(&newReceipt)
+	c.JSON(http.StatusAccepted, gin.H{"result": "Added"})
+
 }
 
 //How Json Should look like:

@@ -5,6 +5,6 @@ type Item struct {
 	ReceiptId int
 	Owner     string
 	Name      string
-	Place     string
+	Shop      string
 	Price     float64
 }

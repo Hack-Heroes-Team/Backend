@@ -1,6 +1,7 @@
 package items
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -20,7 +21,21 @@ func AddItems(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
+	var uniqItems []models.UniqItem
+	var uniqItem models.UniqItem
+	DB.Table("uniqitems").Where("shop = ? ", newItem.Shop).Find(&uniqItems)
+
+	for _, v := range uniqItems {
+		if v.Name == newItem.Shop {
+			fmt.Println("Matching")
+		} else {
+			uniqItem = models.UniqItem{Name: newItem.Shop}
+			DB.Table("uniqitems").Create(&uniqItem)
+		}
+	}
+
 	DB.Table("items").Create(&newItem)
+	c.JSON(http.StatusAccepted, gin.H{"result": "Added"})
 }
 
 //How Json Should look like:

@@ -8,5 +8,6 @@ type Receipt struct {
 	Shop  string
 	Owner string
 	Items []Item
+	Price float64
 	Date  time.Time
 }
