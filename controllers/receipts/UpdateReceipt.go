@@ -1,10 +1,11 @@
 package receipts
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/mic3b/hack-backend/db"
 	"github.com/mic3b/hack-backend/models"
-	"net/http"
 )
 
 func UpdateReceipt(c *gin.Context) {
@@ -19,3 +20,15 @@ func UpdateReceipt(c *gin.Context) {
 
 	DB.Table("receipts").Where("id = ?", updatingReceipt.Id).Updates(&updatingReceipt)
 }
+
+//How Json Should look like:
+/*
+
+{
+"id": int,
+"name": string,
+"shop": string,
+"owner": string,
+"date": timestamp
+}
+*/

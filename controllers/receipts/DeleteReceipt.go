@@ -1,10 +1,11 @@
 package receipts
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/mic3b/hack-backend/db"
 	"github.com/mic3b/hack-backend/models"
-	"net/http"
 )
 
 func DeleteReceipt(c *gin.Context) {
@@ -19,3 +20,15 @@ func DeleteReceipt(c *gin.Context) {
 
 	DB.Table("receipts").Where("id = ?", deletingReceipt.Id).Delete(&deletingReceipt)
 }
+
+//How Json Should look like:
+/*
+
+{
+"id": int,
+"name": string,
+"shop": string,
+"owner": string,
+"date": timestamp
+}
+*/

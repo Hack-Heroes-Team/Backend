@@ -1,14 +1,28 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"github.com/mic3b/hack-backend/controllers/auth"
+	"github.com/mic3b/hack-backend/controllers/dashboard"
 	"github.com/mic3b/hack-backend/controllers/items"
 	"github.com/mic3b/hack-backend/controllers/receipts"
 )
 
+//NOTE: Database is not updated IMPORTANT!!!!!
+
 func main() {
+	port := os.Getenv("PORT")
 	router := gin.Default()
+
+	//Test Part:
+	router.GET("/", receipts.HelloWorld)
+
+	// Dashboard part:
+	router.POST("/lastReceipt", dashboard.LastReceipt)
+	router.POST("/avgReceiptPrice", dashboard.AvgReceiptsPrice)
+	router.POST("/avgReceiptPriceNearbt", dashboard.AvgReceiptsPriceNearby)
 
 	// Auth part:
 	router.POST("/login", auth.Login)
@@ -27,7 +41,7 @@ func main() {
 	router.POST("/deleteItem", items.DeleteItem)
 
 	// Run Server
-	err := router.Run(":" + "8080")
+	err := router.Run(":" + port)
 
 	if err != nil {
 		return
