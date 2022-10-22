@@ -29,7 +29,7 @@ func AddItems(c *gin.Context) {
 		DB.Table("uniqitems").Where("place = ? ", v.Place).Find(&uniqItems)
 	}
 
-	unique := difference(uniqItems, newItem)
+	unique := difference(newItem, uniqItems)
 	fmt.Println(unique)
 
 	for _, v := range newItem {
@@ -39,12 +39,12 @@ func AddItems(c *gin.Context) {
 	c.JSON(http.StatusAccepted, gin.H{"result": "Added"})
 }
 
-func difference(a []models.UniqItem, b []models.Item) []models.UniqItem {
+func difference(a []models.Item, b []models.UniqItem) []models.Item {
 	mb := make(map[string]struct{}, len(b))
 	for _, x := range b {
 		mb[x.Name] = struct{}{}
 	}
-	var diff []models.UniqItem
+	var diff []models.Item
 	for _, x := range a {
 		if _, found := mb[x.Name]; !found {
 			diff = append(diff, x)
