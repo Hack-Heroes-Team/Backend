@@ -22,7 +22,7 @@ func AvgReceiptsPriceNearby(c *gin.Context) {
 
 	var items []models.Item
 
-	DB.Table("items").Where("place = ?", userMail.Shop).Find(&items)
+	DB.Table("items").Where("city = ?", userMail.City).Find(&items)
 
 	c.JSON(http.StatusOK, gin.H{"Avg": addAllItems(items)})
 }
