@@ -1,6 +1,7 @@
 package receipts
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -19,6 +20,8 @@ func FindLastReceiptsFromShop(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	fmt.Println(shopAndOwnerNames)
 
 	if shopAndOwnerNames.Owner == "" {
 		DB.Table("receipts").Where("shop = ?", shopAndOwnerNames.Shop).Find(&receipts).Order(clause.OrderByColumn{Column: clause.Column{Name: "date"}, Desc: true}).Limit(5)

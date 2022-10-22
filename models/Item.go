@@ -6,5 +6,7 @@ type Item struct {
 	Owner     string
 	Name      string
 	Shop      string
+	Place     string
+	City      string
 	Price     float64
 }

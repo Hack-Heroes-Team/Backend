@@ -20,6 +20,8 @@ func AddReceipts(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
+	fmt.Println(newReceipt)
+
 	newReceipt.Date = time.Now()
 
 	var shops []models.Shop

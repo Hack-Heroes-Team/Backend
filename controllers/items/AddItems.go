@@ -21,6 +21,8 @@ func AddItems(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
+	fmt.Println(newItem)
+
 	var uniqItems []models.UniqItem
 	var uniqItem models.UniqItem
 	DB.Table("uniqitems").Where("shop = ? ", newItem.Shop).Find(&uniqItems)

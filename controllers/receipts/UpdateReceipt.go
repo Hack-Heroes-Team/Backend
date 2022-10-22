@@ -1,6 +1,7 @@
 package receipts
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,6 +14,8 @@ func UpdateReceipt(c *gin.Context) {
 	var updatingReceipt models.Receipt
 
 	err := c.ShouldBindJSON(updatingReceipt)
+
+	fmt.Println(updatingReceipt)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

@@ -1,6 +1,7 @@
 package items
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,6 +16,8 @@ func DeleteItem(c *gin.Context) {
 	var deletingItem models.Item
 
 	err := c.ShouldBindJSON(deletingItem)
+
+	fmt.Println(DeleteItem)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

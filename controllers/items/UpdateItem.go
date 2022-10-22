@@ -1,6 +1,7 @@
 package items
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,6 +16,8 @@ func UpdateItem(c *gin.Context) {
 	var updatingItem models.Item
 
 	err := c.ShouldBindJSON(updatingItem)
+
+	fmt.Println(updatingItem)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

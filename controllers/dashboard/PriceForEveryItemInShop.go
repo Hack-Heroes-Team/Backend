@@ -1,6 +1,7 @@
 package dashboard
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -19,6 +20,9 @@ func PriceForEveryItemInShop(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	fmt.Println(userMail)
+
 	DB.Table("items").Where("shop = ?", userMail.Shop).Find(&itemsSec)
 	DB.Table("uniqitems").Where("shop = ?", userMail.Shop).Find(&items)
 
