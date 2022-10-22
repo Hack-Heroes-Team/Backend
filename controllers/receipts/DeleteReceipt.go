@@ -18,7 +18,7 @@ func DeleteReceipt(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
-	fmt.Println(DeleteReceipt)
+	fmt.Println(deletingReceipt)
 
 	DB.Table("receipts").Where("id = ?", deletingReceipt.Id).Delete(&deletingReceipt)
 }
