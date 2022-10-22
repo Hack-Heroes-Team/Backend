@@ -29,14 +29,8 @@ func AddReceipts(c *gin.Context) {
 	DB.Table("shops").Find(&shops)
 	fmt.Println(shops)
 
-	for _, v := range shops {
-		if v.Place == newReceipt.Place {
-			fmt.Println("Matching")
-		}
-		shop = models.Shop{Name: newReceipt.Shop}
-		DB.Table("shops").Create(&shop)
-
-	}
+	shop = models.Shop{Name: newReceipt.Shop}
+	DB.Table("shops").Create(&shop)
 
 	DB.Table("receipts").Create(&newReceipt)
 	c.JSON(http.StatusAccepted, gin.H{"result": "Added"})
