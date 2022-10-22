@@ -38,7 +38,7 @@ func AddReceipts(c *gin.Context) {
 	}
 
 	DB.Table("receipts").Create(&newReceipt)
-	c.JSON(http.StatusAccepted, gin.H{"result": "Added"})
+	c.JSON(http.StatusAccepted, gin.H{"id": newReceipt.Id})
 
 }
 
