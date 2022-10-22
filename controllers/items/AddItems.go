@@ -13,7 +13,7 @@ import (
 
 func AddItems(c *gin.Context) {
 	DB := db.Init()
-	var newItem models.Item
+	var newItem []models.Item
 
 	err := c.ShouldBindJSON(&newItem)
 
@@ -24,20 +24,33 @@ func AddItems(c *gin.Context) {
 	fmt.Println(newItem)
 
 	var uniqItems []models.UniqItem
-	var uniqItem models.UniqItem
-	DB.Table("uniqitems").Where("place = ? ", newItem.Place).Find(&uniqItems)
 
-	for _, v := range uniqItems {
-		if v.Name == newItem.Name {
-			fmt.Println("Matching")
-		} else {
-			uniqItem = models.UniqItem{Name: newItem.Name, Shop: newItem.Shop, Place: newItem.Place, City: newItem.City}
-			DB.Table("uniqitems").Create(&uniqItem)
-		}
+	for _, v := range newItem {
+		DB.Table("uniqitems").Where("place = ? ", v.Place).Find(&uniqItems)
 	}
 
-	DB.Table("items").Create(&newItem)
+	unique := difference(uniqItems, newItem)
+	fmt.Println(unique)
+
+	for _, v := range newItem {
+		DB.Table("items").Create(&v)
+	}
+
 	c.JSON(http.StatusAccepted, gin.H{"result": "Added"})
+}
+
+func difference(a []models.UniqItem, b []models.Item) []models.UniqItem {
+	mb := make(map[string]struct{}, len(b))
+	for _, x := range b {
+		mb[x.Name] = struct{}{}
+	}
+	var diff []models.UniqItem
+	for _, x := range a {
+		if _, found := mb[x.Name]; !found {
+			diff = append(diff, x)
+		}
+	}
+	return diff
 }
 
 //How Json Should look like:
