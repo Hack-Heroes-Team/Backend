@@ -23,8 +23,8 @@ func PriceForEveryItemInShop(c *gin.Context) {
 	DB.Table("uniqitems").Where("shop = ?", userMail.Shop).Find(&items)
 
 	for i, v := range items {
-		items[i].AvgPrice = FindForItems(v.Name, itemsSec)
-		items[i].AvgPrice = items[i].AvgPrice / FindSecForItems(v.Name, itemsSec)
+		items[i].AvgPrice = FindForItems(v.Shop, itemsSec)
+		items[i].AvgPrice = items[i].AvgPrice / FindSecForItems(v.Shop, itemsSec)
 	}
 
 	c.JSON(http.StatusOK, gin.H{"items": items})
