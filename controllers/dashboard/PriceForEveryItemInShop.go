@@ -30,7 +30,7 @@ func PriceForEveryItemInShop(c *gin.Context) {
 		items[i].AvgPrice = FindForItems(v.Name, itemsSec)
 		items[i].AvgPrice = items[i].AvgPrice / FindSecForItems(v.Name, itemsSec)
 	}
-
+	fmt.Println(items)
 	c.JSON(http.StatusOK, gin.H{"items": items})
 }
 
