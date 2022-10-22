@@ -26,7 +26,7 @@ func LastReceipt(c *gin.Context) {
 
 	for i, v := range receipts {
 		var items []models.Item
-		DB.Table("items").Where("receiptid = ?", v.Id).Find(&items)
+		DB.Table("items").Where("receipt_id = ?", v.Id).Find(&items)
 		receipts[i].Items = items
 	}
 
