@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Receipt struct {
-	Id    string
+	Id    int
 	Name  string
 	Shop  string
 	Place string
