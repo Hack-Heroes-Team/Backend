@@ -15,7 +15,7 @@ func AddItems(c *gin.Context) {
 	DB := db.Init()
 	var newItem models.Item
 
-	err := c.ShouldBindJSON(newItem)
+	err := c.ShouldBindJSON(&newItem)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
