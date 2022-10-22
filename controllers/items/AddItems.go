@@ -32,6 +32,15 @@ func AddItems(c *gin.Context) {
 	unique := difference(newItem, uniqItems)
 	fmt.Println(unique)
 
+	for _, v := range unique {
+		var uItem models.UniqItem
+		uItem.Shop = v.Shop
+		uItem.Name = v.Name
+		uItem.City = v.City
+		uItem.Place = v.Place
+		DB.Table("uniqitems").Create(&uItem)
+	}
+
 	for _, v := range newItem {
 		DB.Table("items").Create(&v)
 	}
