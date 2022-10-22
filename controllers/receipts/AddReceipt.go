@@ -26,15 +26,15 @@ func AddReceipts(c *gin.Context) {
 
 	var shops []models.Shop
 	var shop models.Shop
-	DB.Table("shops").Find(&shops)
+	DB.Table("shops").Where("place = ?", newReceipt.Place).Find(&shops)
 
-	for _, v := range shops {
-		if v.Place == newReceipt.Place {
-			fmt.Println("Matching")
-		} else {
-			shop = models.Shop{Name: newReceipt.Shop}
-			DB.Table("shops").Create(&shop)
-		}
+	shop.City = newReceipt.City
+	shop.Name = newReceipt.Shop
+	shop.Place = newReceipt.Place
+	shop.AvgPrice = 0.00
+
+	if len(shops) == 0 {
+		DB.Table("shops").Create(&shop)
 	}
 
 	DB.Table("receipts").Create(&newReceipt)
