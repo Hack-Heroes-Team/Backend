@@ -12,6 +12,7 @@ import (
 func DeleteReceipt(c *gin.Context) {
 	DB := db.Init()
 	var deletingReceipt models.Receipt
+	var deletingReceipts []models.Receipt
 
 	err := c.ShouldBindJSON(&deletingReceipt)
 
@@ -20,7 +21,9 @@ func DeleteReceipt(c *gin.Context) {
 	}
 	fmt.Println(deletingReceipt)
 
+	DB.Table("receipts").Where("id = ?", deletingReceipt.Id).Find(&deletingReceipts)
 	DB.Table("receipts").Where("id = ?", deletingReceipt.Id).Delete(&deletingReceipt)
+	c.JSON(http.StatusOK, gin.H{"deleted": deletingReceipts})
 }
 
 //How Json Should look like:
