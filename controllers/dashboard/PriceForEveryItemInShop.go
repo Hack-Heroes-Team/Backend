@@ -23,8 +23,8 @@ func PriceForEveryItemInShop(c *gin.Context) {
 	DB.Table("uniqitems").Where("shop = ?", userMail.Shop).Find(&items)
 
 	for i, v := range items {
-		items[i].AvgPrice = FindForItems(v.Shop, itemsSec)
-		items[i].AvgPrice = items[i].AvgPrice / FindSecForItems(v.Shop, itemsSec)
+		items[i].AvgPrice = FindForItems(v.Name, itemsSec)
+		items[i].AvgPrice = items[i].AvgPrice / FindSecForItems(v.Name, itemsSec)
 	}
 
 	c.JSON(http.StatusOK, gin.H{"items": items})
@@ -33,7 +33,7 @@ func PriceForEveryItemInShop(c *gin.Context) {
 func FindForItems(elem string, elems []models.Item) float64 {
 	var AvgPrice float64
 	for _, v := range elems {
-		if elem == v.Shop {
+		if elem == v.Name {
 			AvgPrice = AvgPrice + v.Price
 		}
 	}
@@ -44,7 +44,7 @@ func FindForItems(elem string, elems []models.Item) float64 {
 func FindSecForItems(elem string, elems []models.Item) float64 {
 	var Counter float64
 	for _, v := range elems {
-		if elem == v.Shop {
+		if elem == v.Name {
 			Counter = Counter + 1
 		}
 	}
