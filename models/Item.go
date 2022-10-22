@@ -2,7 +2,7 @@ package models
 
 type Item struct {
 	Id        int
-	ReceiptId int
+	Receiptid int
 	Owner     string
 	Name      string
 	Shop      string
