@@ -39,12 +39,12 @@ func ShopStats(c *gin.Context) {
 
 }
 
-func Find(elem string, elems []models.Receipt) (float64, []models.Receipt) {
+func Find(elem string, elems []models.Receipt) (float64, []string) {
 	var AvgPrice float64
-	var sliceForLen []models.Receipt
+	var sliceForLen []string
 	for _, v := range elems {
 		if elem == v.Place {
-			sliceForLen = append(sliceForLen, v)
+			sliceForLen = append(sliceForLen, v.Place)
 			AvgPrice = AvgPrice + v.Price
 		}
 	}
