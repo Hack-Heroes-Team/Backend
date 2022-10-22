@@ -25,13 +25,13 @@ func AddItems(c *gin.Context) {
 
 	var uniqItems []models.UniqItem
 	var uniqItem models.UniqItem
-	DB.Table("uniqitems").Where("shop = ? ", newItem.Shop).Find(&uniqItems)
+	DB.Table("uniqitems").Where("place = ? ", newItem.Place).Find(&uniqItems)
 
 	for _, v := range uniqItems {
-		if v.Name == newItem.Shop {
+		if v.Name == newItem.Name {
 			fmt.Println("Matching")
 		} else {
-			uniqItem = models.UniqItem{Name: newItem.Shop}
+			uniqItem = models.UniqItem{Name: newItem.Name, Shop: newItem.Shop, Place: newItem.Place, City: newItem.City}
 			DB.Table("uniqitems").Create(&uniqItem)
 		}
 	}

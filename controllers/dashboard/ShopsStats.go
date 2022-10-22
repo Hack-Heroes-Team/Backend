@@ -28,8 +28,8 @@ func ShopStats(c *gin.Context) {
 	}
 
 	for i, v := range shops {
-		shops[i].AvgPrice = Find(v.Name, receipts)
-		shops[i].AvgPrice = shops[i].AvgPrice / FindSec(v.Name, receipts)
+		shops[i].AvgPrice = Find(v.Place, receipts)
+		shops[i].AvgPrice = shops[i].AvgPrice / FindSec(v.Place, receipts)
 	}
 
 	c.JSON(http.StatusOK, gin.H{"stats": shops})
@@ -39,7 +39,7 @@ func ShopStats(c *gin.Context) {
 func Find(elem string, elems []models.Receipt) float64 {
 	var AvgPrice float64
 	for _, v := range elems {
-		if elem == v.Shop {
+		if elem == v.Place {
 			AvgPrice = AvgPrice + v.Price
 		}
 	}
@@ -50,7 +50,7 @@ func Find(elem string, elems []models.Receipt) float64 {
 func FindSec(elem string, elems []models.Receipt) float64 {
 	var Counter float64
 	for _, v := range elems {
-		if elem == v.Shop {
+		if elem == v.Place {
 			Counter = Counter + 1
 		}
 	}

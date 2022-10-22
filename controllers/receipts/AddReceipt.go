@@ -29,7 +29,7 @@ func AddReceipts(c *gin.Context) {
 	DB.Table("shops").Find(&shops)
 
 	for _, v := range shops {
-		if v.Name == newReceipt.Shop {
+		if v.Place == newReceipt.Place {
 			fmt.Println("Matching")
 		} else {
 			shop = models.Shop{Name: newReceipt.Shop}
