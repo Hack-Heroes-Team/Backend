@@ -23,8 +23,8 @@ func PriceForEveryItemInShop(c *gin.Context) {
 
 	fmt.Println(userMail)
 
-	DB.Table("items").Where("place = ?", userMail.Shop).Find(&itemsSec)
-	DB.Table("uniqitems").Where("place = ?", userMail.Shop).Find(&items)
+	DB.Table("items").Where("place = ?", userMail.Place).Find(&itemsSec)
+	DB.Table("uniqitems").Where("place = ?", userMail.Place).Find(&items)
 
 	for i, v := range items {
 		items[i].AvgPrice = FindForItems(v.Name, itemsSec)
