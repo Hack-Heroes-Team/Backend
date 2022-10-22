@@ -27,7 +27,7 @@ func AddReceipts(c *gin.Context) {
 	var shops []models.Shop
 	var shop models.Shop
 	DB.Table("shops").Find(&shops)
-	fmt.Println("shops")
+	fmt.Println(shops)
 
 	for _, v := range shops {
 		if v.Place == newReceipt.Place {
