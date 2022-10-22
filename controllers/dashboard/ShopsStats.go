@@ -29,34 +29,25 @@ func ShopStats(c *gin.Context) {
 	}
 
 	for i, v := range shops {
-		shops[i].AvgPrice = Find(v.Place, receipts)
-		d := FindSec(v.Place, receipts)
+		shops[i].AvgPrice, _ = Find(v.Place, receipts)
+		_, d := Find(v.Place, receipts)
 		fmt.Println(d)
-		shops[i].AvgPrice = shops[i].AvgPrice / 3
+		shops[i].AvgPrice = shops[i].AvgPrice / float64(len(d))
 	}
 
 	c.JSON(http.StatusOK, gin.H{"stats": shops})
 
 }
 
-func Find(elem string, elems []models.Receipt) float64 {
+func Find(elem string, elems []models.Receipt) (float64, []models.Receipt) {
 	var AvgPrice float64
+	var sliceForLen []models.Receipt
 	for _, v := range elems {
 		if elem == v.Place {
+			sliceForLen = append(sliceForLen, v)
 			AvgPrice = AvgPrice + v.Price
 		}
 	}
 
-	return AvgPrice
-}
-
-func FindSec(elem string, elems []models.Receipt) float64 {
-	var Counter float64
-	for _, v := range elems {
-		if elem == v.Place {
-			Counter = Counter + 1
-		}
-	}
-
-	return Counter
+	return AvgPrice, sliceForLen
 }
