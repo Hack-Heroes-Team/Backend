@@ -14,7 +14,7 @@ func AddReceipts(c *gin.Context) {
 	DB := db.Init()
 	var newReceipt models.Receipt
 
-	err := c.ShouldBindJSON(newReceipt)
+	err := c.ShouldBindJSON(&newReceipt)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

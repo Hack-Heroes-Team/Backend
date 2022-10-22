@@ -1,6 +1,7 @@
 package dashboard
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/mic3b/hack-backend/db"
 	"github.com/mic3b/hack-backend/models"
@@ -29,7 +30,9 @@ func ShopStats(c *gin.Context) {
 
 	for i, v := range shops {
 		shops[i].AvgPrice = Find(v.Place, receipts)
-		shops[i].AvgPrice = shops[i].AvgPrice / FindSec(v.Place, receipts)
+		d := FindSec(v.Place, receipts)
+		fmt.Println(d)
+		shops[i].AvgPrice = shops[i].AvgPrice / d
 	}
 
 	c.JSON(http.StatusOK, gin.H{"stats": shops})
