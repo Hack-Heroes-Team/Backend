@@ -13,7 +13,14 @@ func ShopStats(c *gin.Context) {
 
 	var receipts []models.Receipt
 	var shops []models.Shop
-	DB.Table("shops").Find(&shops)
+
+	var userMail models.InputForm
+
+	if err := c.ShouldBindJSON(&userMail); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	DB.Table("shops").Where("city = ?", userMail.City).Find(&shops)
 
 	DB.Table("receipts").Find(&receipts)
 

@@ -24,7 +24,7 @@ func main() {
 	router.POST("/avgReceiptPrice", dashboard.AvgReceiptsPrice)
 	router.POST("/avgReceiptPriceNearby", dashboard.AvgReceiptsPriceNearby)
 	router.POST("/priceForEveryItemInShop", dashboard.PriceForEveryItemInShop)
-	router.GET("/shopStats", dashboard.ShopStats)
+	router.POST("/shopStats", dashboard.ShopStats)
 
 	// Auth part:
 	router.POST("/login", auth.Login)
