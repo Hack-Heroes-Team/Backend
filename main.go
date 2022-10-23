@@ -37,6 +37,7 @@ func main() {
 	router.POST("/deleteReceipt", receipts.DeleteReceipt)
 	router.POST("/findLastReceiptsFromShop", receipts.FindLastReceiptsFromShop)
 	router.POST("/updateReceipt", receipts.UpdateReceipt)
+	router.POST("/findReceipt", receipts.FindReceipt)
 
 	// Items part:
 	router.POST("/updateItem", items.UpdateItem)
