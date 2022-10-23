@@ -51,7 +51,7 @@ func Register(c *gin.Context) {
 
 	DB.Table("users").Create(&User)
 
-	c.JSON(http.StatusAccepted, gin.H{"registered": true})
+	c.JSON(http.StatusAccepted, gin.H{"registered": User})
 }
 
 func HashPassword(c *gin.Context, password string) (string, error) {

@@ -39,17 +39,17 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	checkPassword(c, Users.Password, User.Password)
+	checkPassword(c, User.Mail, Users.Password, User.Password)
 }
 
 // Deserialize Hashed Password and Password from JSON request
-func checkPassword(c *gin.Context, userPassword, formPassword string) {
+func checkPassword(c *gin.Context, mail, userPassword, formPassword string) {
 	err := bcrypt.CompareHashAndPassword([]byte(userPassword), []byte(formPassword))
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"authorized": false, "error": "Bad Password, Try again"})
 		return
 	} else {
-		c.JSON(http.StatusOK, gin.H{"authorized": true})
+		c.JSON(http.StatusOK, gin.H{"authorized": mail})
 		return
 	}
 }
