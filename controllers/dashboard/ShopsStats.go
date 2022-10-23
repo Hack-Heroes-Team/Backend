@@ -29,8 +29,10 @@ func ShopStats(c *gin.Context) {
 	}
 
 	for i, v := range shops {
-		shops[i].AvgPrice, _ = Find(v.Place, receipts)
-		_, d := Find(v.Place, receipts)
+		var items []models.Item
+		DB.Table("items").Where("place = ?", v.Place).Find(&items)
+		shops[i].AvgPrice, _ = Find(v.Place, items)
+		_, d := Find(v.Place, items)
 		fmt.Println(d)
 		shops[i].AvgPrice = shops[i].AvgPrice / float64(len(d))
 		if len(d) == 0 {
@@ -45,7 +47,7 @@ func ShopStats(c *gin.Context) {
 
 }
 
-func Find(elem string, elems []models.Receipt) (float64, []string) {
+func Find(elem string, elems []models.Item) (float64, []string) {
 	var AvgPrice float64
 	var sliceForLen []string
 	for _, v := range elems {
