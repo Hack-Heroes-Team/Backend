@@ -26,6 +26,7 @@ func Login(c *gin.Context) {
 	User.Name = ""
 	User.Surname = " "
 	User.Mail = formFromInput.Mail
+	User.City = formFromInput.City
 	User.Password = formFromInput.Password
 
 	// Authorization part
