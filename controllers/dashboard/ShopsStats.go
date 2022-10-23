@@ -19,7 +19,7 @@ func ShopStats(c *gin.Context) {
 
 	for i, v := range receipts {
 		var items []models.Item
-		DB.Table("items").Where("receiptid = ?", v.Id).Find(&items)
+		DB.Table("items").Where("receipt_id = ?", v.Id).Find(&items)
 		receipts[i].Items = items
 		total := 0.00
 		for _, v := range items {

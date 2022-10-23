@@ -9,8 +9,6 @@ import (
 	"github.com/mic3b/hack-backend/models"
 )
 
-// NOTE: items column struct in db are not changed
-
 func AddItems(c *gin.Context) {
 	DB := db.Init()
 	var newItem []models.Item
