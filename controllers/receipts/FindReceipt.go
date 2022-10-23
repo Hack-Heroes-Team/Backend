@@ -35,5 +35,5 @@ func FindReceipt(c *gin.Context) {
 		receipts[i].Price = sum
 	}
 
-	c.JSON(http.StatusOK, gin.H{"receipt": receipts[0]})
+	c.JSON(http.StatusOK, gin.H{"receipt": receipts[1]})
 }
