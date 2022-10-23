@@ -53,7 +53,7 @@ func checkPassword(c *gin.Context, mail, userPassword, formPassword string) {
 		c.JSON(http.StatusUnauthorized, gin.H{"authorized": false, "error": "Bad Password, Try again"})
 		return
 	} else {
-		c.JSON(http.StatusOK, gin.H{"authorized": mail})
+		c.JSON(http.StatusOK, gin.H{"city": mail})
 		return
 	}
 }
