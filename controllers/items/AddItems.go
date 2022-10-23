@@ -42,7 +42,7 @@ func AddItems(c *gin.Context) {
 
 	for _, v := range newItem {
 		DB.Table("items").Create(&v)
-
+		DB.Table("items").Where("name AND place = ?", v.Price, v.Place).Update("price", &v.Price)
 	}
 
 	c.JSON(http.StatusAccepted, gin.H{"result": "Added"})
