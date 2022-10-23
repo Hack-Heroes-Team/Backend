@@ -41,7 +41,7 @@ func AddItems(c *gin.Context) {
 	}
 
 	for _, v := range newItem {
-		DB.Table("items").Updates(&v)
+		DB.Table("items").FirstOrCreate(&v)
 	}
 
 	c.JSON(http.StatusAccepted, gin.H{"result": "Added"})
