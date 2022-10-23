@@ -36,11 +36,12 @@ func AddItems(c *gin.Context) {
 		uItem.Name = v.Name
 		uItem.City = v.City
 		uItem.Place = v.Place
+		uItem.AvgPrice = v.Price
 		DB.Table("uniqitems").Create(&uItem)
 	}
 
 	for _, v := range newItem {
-		DB.Table("items").Create(&v)
+		DB.Table("items").Updates(&v)
 	}
 
 	c.JSON(http.StatusAccepted, gin.H{"result": "Added"})
