@@ -29,6 +29,7 @@ func main() {
 	// Auth part:
 	router.POST("/login", auth.Login)
 	router.POST("/register", auth.Register)
+	router.POST("/delete", auth.Delete)
 
 	// Receipt part:
 	router.POST("/receiptsForUser", receipts.FindAllReceiptsForUser)
