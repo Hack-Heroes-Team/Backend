@@ -15,7 +15,7 @@ func UpdateItem(c *gin.Context) {
 	DB := db.Init()
 	var updatingItem models.Item
 
-	err := c.ShouldBindJSON(updatingItem)
+	err := c.ShouldBindJSON(&updatingItem)
 
 	fmt.Println(updatingItem)
 

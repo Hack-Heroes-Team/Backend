@@ -15,15 +15,24 @@ func DeleteItem(c *gin.Context) {
 	DB := db.Init()
 	var deletingItem models.Item
 
-	err := c.ShouldBindJSON(deletingItem)
+	err := c.ShouldBindJSON(&deletingItem)
 
-	fmt.Println(DeleteItem)
+	fmt.Println(deletingItem)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
 	DB.Table("items").Where("id = ?", deletingItem.Id).Delete(&deletingItem)
+
+	var uItems []models.UniqItem
+
+	DB.Table("uniqitems").Where("place AND name = ?", deletingItem.Place, deletingItem.Name).Find(&uItems)
+
+	if len(uItems) >= 1 {
+		DB.Table("uniqitems").Where("place AND name = ?", deletingItem.Place, deletingItem.Name).Delete(&deletingItem)
+	}
+
 }
 
 //How Json Should look like:
