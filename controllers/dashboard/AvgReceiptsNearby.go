@@ -28,14 +28,14 @@ func AvgReceiptsPriceNearby(c *gin.Context) {
 		var items []models.Item
 		DB.Table("items").Where("receipt_id = ?", v.Id).Find(&items)
 		receipts[i].Items = items
-		var sum float64
-		for _, v := range items {
-			sum = sum + v.Price
-		}
-		receipts[i].Price = sum
+
 	}
 
-	c.JSON(http.StatusOK, gin.H{"Avg": addAllItems(receipts)})
+	var items []models.Item
+
+	DB.Table("items").Where("city = ?", userMail.City).Find(&items)
+
+	c.JSON(http.StatusOK, gin.H{"Avg": addAllItems(items)})
 }
 
 //How Json Should look like:

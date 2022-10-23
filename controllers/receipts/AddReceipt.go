@@ -2,7 +2,6 @@ package receipts
 
 import (
 	"fmt"
-	"gorm.io/gorm/clause"
 	"net/http"
 	"time"
 
@@ -41,9 +40,7 @@ func AddReceipts(c *gin.Context) {
 	}
 
 	DB.Table("receipts").Create(&newReceipt)
-	var receipt models.Receipt
-	DB.Table("receipts").Where("shop = ?", newReceipt.Shop).Find(&receipt).Order(clause.OrderByColumn{Column: clause.Column{Name: "date"}, Desc: true}).Limit(1)
-	c.JSON(http.StatusAccepted, gin.H{"id": receipt.Id})
+	c.JSON(http.StatusAccepted, gin.H{"id": newReceipt.Id})
 
 }
 
