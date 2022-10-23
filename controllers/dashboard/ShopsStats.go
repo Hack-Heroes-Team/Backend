@@ -31,6 +31,7 @@ func ShopStats(c *gin.Context) {
 	for i, v := range shops {
 		shops[i].AvgPrice, _ = Find(v.Place, receipts)
 		_, d := Find(v.Place, receipts)
+		fmt.Println(d)
 		shops[i].AvgPrice = shops[i].AvgPrice / float64(len(d))
 		if len(d) == 0 {
 			shops[i].AvgPrice = 0.00
