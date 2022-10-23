@@ -33,6 +33,8 @@ func DeleteItem(c *gin.Context) {
 		DB.Table("uniqitems").Where("place = ? AND name = ?", deletingItem.Place, deletingItem.Name).Delete(&deletingItem)
 	}
 
+	c.JSON(http.StatusBadRequest, gin.H{"deleted": true})
+
 }
 
 //How Json Should look like:
