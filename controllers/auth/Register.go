@@ -39,6 +39,7 @@ func Register(c *gin.Context) {
 	User.Name = formFromInput.Name
 	User.Surname = formFromInput.Surname
 	User.Mail = formFromInput.Mail
+	User.City = formFromInput.City
 	User.Password = hashedPassword
 
 	err = CheckIfMailAlreadyExisting(c, User.Mail)

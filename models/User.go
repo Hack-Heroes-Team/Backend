@@ -5,4 +5,5 @@ type User struct {
 	Surname  string
 	Mail     string
 	Password string
+	City     string
 }
