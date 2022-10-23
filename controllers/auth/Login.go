@@ -26,7 +26,7 @@ func Login(c *gin.Context) {
 	User.Name = ""
 	User.Surname = " "
 	User.Mail = formFromInput.Mail
-	User.City = formFromInput.City
+
 	User.Password = formFromInput.Password
 
 	// Authorization part
@@ -40,7 +40,10 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	checkPassword(c, User.City, Users.Password, User.Password)
+	DB.Table("users").Where("mail = ?", User.Mail).First(&Users)
+
+	checkPassword(c, Users.City, Users.Password, User.Password)
+
 }
 
 // Deserialize Hashed Password and Password from JSON request
