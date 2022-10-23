@@ -28,6 +28,11 @@ func LastReceipt(c *gin.Context) {
 		var items []models.Item
 		DB.Table("items").Where("receipt_id = ?", v.Id).Find(&items)
 		receipts[i].Items = items
+		var sum float64
+		for _, v := range items {
+			sum = sum + v.Price
+		}
+		receipts[i].Price = sum
 	}
 
 	max := receipts[0]
