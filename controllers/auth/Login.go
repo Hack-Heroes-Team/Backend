@@ -39,7 +39,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	checkPassword(c, User.Mail, Users.Password, User.Password)
+	checkPassword(c, User.City, Users.Password, User.Password)
 }
 
 // Deserialize Hashed Password and Password from JSON request
