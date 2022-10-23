@@ -27,10 +27,10 @@ func DeleteItem(c *gin.Context) {
 
 	var uItems []models.UniqItem
 
-	DB.Table("uniqitems").Where("place AND name = ?", deletingItem.Place, deletingItem.Name).Find(&uItems)
+	DB.Table("uniqitems").Where("place = ? AND name = ?", deletingItem.Place, deletingItem.Name).Find(&uItems)
 
 	if len(uItems) >= 1 {
-		DB.Table("uniqitems").Where("place AND name = ?", deletingItem.Place, deletingItem.Name).Delete(&deletingItem)
+		DB.Table("uniqitems").Where("place = ? AND name = ?", deletingItem.Place, deletingItem.Name).Delete(&deletingItem)
 	}
 
 }
