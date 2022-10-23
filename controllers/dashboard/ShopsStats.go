@@ -31,9 +31,10 @@ func ShopStats(c *gin.Context) {
 	for i, v := range shops {
 		shops[i].AvgPrice, _ = Find(v.Place, receipts)
 		_, d := Find(v.Place, receipts)
-		fmt.Println(d)
 		shops[i].AvgPrice = shops[i].AvgPrice / float64(len(d))
 	}
+
+	fmt.Println(shops)
 
 	c.JSON(http.StatusOK, gin.H{"stats": shops})
 
