@@ -31,6 +31,8 @@ func AddReceipts(c *gin.Context) {
 	shop.City = newReceipt.City
 	shop.Name = newReceipt.Shop
 	shop.Place = newReceipt.Place
+	shop.Number = newReceipt.Number
+	shop.Street = newReceipt.Street
 	shop.AvgPrice = 0.00
 
 	if len(shops) == 0 {
